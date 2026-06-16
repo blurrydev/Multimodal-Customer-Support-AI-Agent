@@ -1,42 +1,96 @@
-# NovaCart AI Support Agent
+# NovaCart AI Support Engine
 
-A full-stack web application featuring an autonomous customer support agent. The agent processes and evaluates e-commerce refund requests using a LangGraph state machine, Google Gemini, and a mock SQLite CRM database. 
+This project consists of a FastAPI backend using LangGraph, Gemini, and Local Voice (Faster-Whisper + Edge-TTS) and an Angular frontend.
 
-It includes a real-time multimodal interface supporting both text input and local voice stream processing.
+## Prerequisites
 
-## Architecture & Tech Stack
-
-* **Frontend:** Angular 19, Vanilla CSS
-* **Backend:** FastAPI, WebSockets
-* **Agent Orchestration:** LangGraph, LangChain
-* **LLM:** Google Gemini
-* **Speech-to-Text (STT):** `faster-whisper` (Local)
-* **Text-to-Speech (TTS):** `edge-tts`
-* **Database:** SQLite
-
-## Core Features
-
-* **Policy-Driven Tool Calling:** The LangGraph conditional routing forces the agent to query the SQLite order database to validate purchase dates against a strict 14-day refund policy before issuing a decision.
-* **Multimodal WebSocket Gateway:** The FastAPI backend dynamically processes standard JSON text payloads and Base64-encoded audio chunks over a single WebSocket connection. 
-* **Local Voice Processing:** Audio processing is handled locally via `faster-whisper` and `edge-tts` to reduce API latency and avoid sending raw audio streams to external third-party endpoints.
-* **Reasoning Logs:** Internal LangGraph execution steps and tool-call events are exposed in real-time for debugging and admin tracking.
+Before you begin, ensure you have the following installed:
+- **Python 3.13+**
+- **Node.js** (latest LTS recommended)
+- **Git**
 
 ---
 
-## Local Setup Instructions
+## Project Structure
 
-### Prerequisites
-* Python 3.10+
-* Node.js v21+
+- `Backend/`: FastAPI application, AI agent logic, and database.
+- `Frontend/`: Angular application for the user interface.
 
-### 1. Backend Setup (FastAPI + LangGraph)
+---
 
-Navigate to the `backend` directory:
+## Backend Setup
 
-```bash
-# Create and activate a virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+1. **Navigate to the Backend directory:**
+   ```bash
+   cd Backend
+   ```
 
-# Install dependencies
-pip install -r requirements.txt
+2. **Create a virtual environment:**
+   We recommend using `uv` for faster dependency management, but standard `venv` works too.
+
+   **Using `uv` (Recommended):**
+   ```bash
+   # Install uv if you haven't: https://github.com/astral-sh/uv
+   uv venv
+   uv sync
+   ```
+
+   **Using `venv`:**
+   ```bash
+   python -m venv .venv
+   # Windows:
+   .venv\Scripts\activate
+   # macOS/Linux:
+   source .venv/bin/activate
+   
+   pip install -r req.txt
+   ```
+
+3. **Configure Environment Variables:**
+   - Copy the example environment file:
+     ```bash
+     cp .env.example .env
+     ```
+   - Open `.env` and add your `GEMINI_API_KEY`.
+
+4. **Initialize the Database:**
+   ```bash
+   python db/create_db.py
+   ```
+
+5. **Run the Backend:**
+   ```bash
+   python main.py
+   ```
+   The backend will start at `http://localhost:8000`.
+
+---
+
+## Frontend Setup
+
+1. **Navigate to the Frontend directory:**
+   ```bash
+   cd Frontend
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+
+3. **Run the Frontend:**
+   ```bash
+   npm start
+   ```
+   Open your browser and navigate to `http://localhost:4200/`.
+
+---
+
+## Troubleshooting
+
+- **Python Version:** Ensure you are using Python 3.13 or higher as specified in `pyproject.toml`.
+- **Port Conflicts:** Ensure ports `8000` (Backend) and `4200` (Frontend) are available.
+- **Microphone Access:** The application requires microphone access for audio input features.
+- **API Keys:** Ensure your Gemini API key is valid and has sufficient quota.
+
+---
