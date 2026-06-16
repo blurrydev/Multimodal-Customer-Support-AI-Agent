@@ -1,0 +1,50 @@
+# IDEs and Editors
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/mcp.json
+.idea/
+*.swp
+*.swo
+.history/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Backend (Python / FastAPI)
+Backend/.venv/
+Backend/__pycache__/
+Backend/*.py[cod]
+Backend/*.so
+Backend/.python-version
+Backend/.env
+Backend/.pytest_cache/
+!Backend/db/.gitkeep
+
+# Frontend (Angular / Node)
+Frontend/node_modules/
+Frontend/.angular/
+Frontend/dist/
+Frontend/tmp/
+Frontend/out-tsc/
+Frontend/bazel-out/
+Frontend/coverage/
+Frontend/.sass-cache/
+Frontend/npm-debug.log*
+Frontend/yarn-error.log*
+Frontend/yarn-debug.log*
+Frontend/connect.lock
+Frontend/libpeerconnection.log
+Frontend/testem.log
+Frontend/typings/
+Frontend/__screenshots__/
+
+# General
+*.log
+*.bak
+*.tmp
+*.temp
