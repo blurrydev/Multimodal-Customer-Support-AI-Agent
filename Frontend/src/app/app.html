@@ -1,0 +1,35 @@
+<div class="app-container">
+  
+  <div class="header">
+    <h1>NovaCart AI Support</h1>
+    <span class="status-badge">Connected</span>
+  </div>
+
+  <div class="chat-wrapper">
+    <div #chatScroll class="chat-history">
+      <div *ngIf="messages.length === 0" class="welcome-text">
+        <h2>How can we help you today?</h2>
+        <p>Type below or click the microphone to speak directly to an agent.</p>
+      </div>
+      
+      <div *ngFor="let msg of messages" class="message-row" [class.user-row]="msg.role === 'user'">
+        <div class="message-bubble" [class.agent]="msg.role === 'agent'" [class.user]="msg.role === 'user'">
+          {{ msg.content }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-wrapper">
+    <div class="input-area">
+      <button class="mic-button" [class.listening]="isListening" (click)="toggleMicrophone()" title="Click to speak">
+        <span class="mic-icon">🎙️</span>
+      </button>
+
+      <input type="text" [(ngModel)]="inputText" (keyup.enter)="sendMessage()" placeholder="Type your message..." />
+      
+      <button class="send-button" (click)="sendMessage()">Send</button>
+    </div>
+  </div>
+
+</div>
